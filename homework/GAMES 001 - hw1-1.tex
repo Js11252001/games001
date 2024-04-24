@@ -1,0 +1,442 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=2.0cm,right=2.0cm,top=2.5cm,bottom=2.5cm}
+
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{diagbox}
+\usepackage{amsmath,amsfonts,graphicx,amssymb,bm,amsthm}
+%\usepackage{algorithm,algorithmicx}
+\usepackage[ruled]{algorithm2e}
+\usepackage[noend]{algpseudocode}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,automata}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{ctex}
+
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\makeatother
+
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0 in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\hfill$\blacktriangleleft$\end{trivlist}}
+\newenvironment{answer}[1][Answer]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1.}\hskip \labelsep]}{\hfill$\lhd$\end{trivlist}}
+
+\newcommand\E{\mathbb{E}}
+
+\def\onedot{$\mathsurround0pt\ldotp$}
+\def\cddot{% two dots stacked vertically
+  \mathbin{\vcenter{\baselineskip.67ex
+    \hbox{\onedot}\hbox{\onedot}}%
+  }}%
+\def\cdddot#1{% three dots 
+  \mathbin{\vcenter{\baselineskip.67ex
+    \hbox{\onedot}\hbox{\onedot}\hbox{\onedot}%
+  }}%
+}
+
+
+\title{Homework Set \#1}
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+    \pagestyle{fancy}
+    \lhead{}
+    \chead{}
+    \rhead{GAMES 001, 2024 Spring}
+
+    \begin{center}
+        {\LARGE \bf Homework \#1}\\
+        {Due: 2024-4-16 00:00 \quad$|$\quad 7 Questions, 100 Pts}\\
+        {Name: JS}
+    \end{center}
+
+    \begin{question}{1 (16') (向量空间)}~
+
+    a. 证明：由\rmnum{2}可得，$[C_1]$中的$\forall c_1$和$[C_2]$中的$\forall c_2$，其对人眼的色觉刺激相同，他们进行色光混合时$c_1 \oplus c_2$和其对应的等价类
+    $C_1 \oplus C_2$得到的混合后结果相同，所以$c_1 \oplus c_2 \in [C_1 \oplus C_2]$，加法是良定义的。
+    ~\\
+
+    
+    b. 证明：根据定义，$\alpha \odot c$是将$c$的功率谱乘以$\alpha$得到的色光。由格拉斯曼定律\rmnum{3}可知，
+    功率谱的变化不影响色光的色相和饱和度，且$L_V(\alpha \odot c)$与$L_V([\alpha \odot C])$二者亮度也相等
+    所以$\alpha \odot c \in [\alpha \odot C]$，需要考虑$\alpha < 0$时的意义为在混合光中去除这一种光，因此数乘是良定义的。
+    ~\\
+
+    c. 证明：线性空间要满足如下性质：
+
+    \quad1.  $\forall [C_1],\, [C_2] \in \{[C]\}$ 都有 $[C_1] + [C_2] = [C_2] + [C_1]$ 因此该空间满足交换性。
+
+    \quad2.  $\forall [C_1], \,[C_2],\, [C_3] \in \{[C]\}$和$\forall \alpha,  \beta \in \mathbb{R}$都有 $([C_1] + [C_2]) + [C_3] = [C_1] + ([C_2] + [C_3])$和
+    $(\alpha \beta) \cdot [C_1] = \alpha (\beta \cdot [C_1])$ 因此该空间满足结合性。
+
+    \quad3.  $\exists \, [0] \in \{[C]\}$，这里$[0]$代表的没有光源的情况,使得对$\forall \, [C_1] \in \{[C]\}$有$[C] + [0] = [C]$ 因此存在加法单位元。
+
+    \quad4.  $\forall [C] \in \{[C]\}$都 $\exists \, [W] = (-1) \cdot [C]$，使得$[C] + [W] = [0]$，则对任意$[C]$都存在其加法逆元。
+
+    \quad5.  $\forall [C] \in \{[C]\}$有 $1 \cdot [C] = [C]$，说明存在乘法单位元。
+
+    \quad6.  $\forall [C_1], \,[C_2] \in \{[C]\}$ 和 $\forall \alpha,  \beta \in \mathbb{R}$都有$\alpha \cdot ([C_1] + [C_2]) = \alpha \cdot [C_1] + \alpha \cdot [C_2]$
+    和$(\alpha + \beta) \cdot ([C_1] = \alpha \cdot [C_1] + \beta \cdot [C_1]$，表面该空间具有分配性质。综合以上六条性质，可说明$\{[C]\}$为线性空间。
+    ~\\
+
+    d. 证明：根据Abney定律有$L_V([C_1] + [C_2]) = L_V([C_1]) + L_V([C_2])$ 且由于改变功率谱不改变光的其他特征，有$L_V(\alpha \cdot [C]) = \alpha \cdot L_V([C])$
+    综上，其满足线性算子的基本性质，其为线性映射。
+    
+    \end{question}
+
+    \begin{question}{2 (20') (矩阵特征值)}~
+
+    a. 由$\lambda \vb*{\alpha} = \vb{A} \vb*{\alpha}, \quad \vb{A}^k \vb*\alpha = \lambda^k \vb*{\alpha}$，
+    
+    则$f(\vb{A}) \vb*{\alpha} = c_k \vb{A}^k\vb*{\alpha} + c_{k-1} \vb{A}^{k-1}\vb*{\alpha} + \cdots + c_1 \vb{A}\vb*{\alpha} + c_0 \vb{I}\vb*{\alpha}$\\
+    $= c_k \lambda^k\vb*{\alpha} + c_{k-1} \lambda^{k-1}\vb*{\alpha} + \cdots + c_1 \lambda\vb*{\alpha} + c_0 \vb{I}\vb*{\alpha}$\\
+    $=f(\lambda) \vb*{\alpha}, \quad \vb*{\alpha} \neq \vb*{0}$，得证。\\
+
+    b. 由a可知，$\vb{A}$ 的特征值为 $\{\lambda_1, \ldots, \lambda_n\}$，则 $f(\vb{A})$ 有特征值为 $\{f(\lambda_1), \ldots, f(\lambda_n)\}$，又因为$f(\vb{A})$为$n \times n$
+    的矩阵，因此其至多有n个特征值，得证。\\
+
+    c. $e^{\vb{X}^{\vb{T}}} = \sum_{k=0}^\infty \frac{1}{k!} ({\vb{X}^{\vb{T}}})^k = \sum_{k=0}^\infty \frac{1}{k!} ({\vb{X}^k})^{\vb{T}}
+    = (\sum_{k=0}^\infty \frac{1}{k!} \vb{X}^k)^{\vb{T}} = (e^{\vb{X}})^{\vb{T}}$  因此得证。\\
+
+    d. 任何方阵都可以相似于一个 Jordan 矩阵，因此我们可以假设 $\vb{B}$ 相似于一个 Jordan 矩阵 $\vb{J}$，即 $\vb{B} = \vb{PJP^{-1}}$，其中 $\vb{P}$ 是可逆矩阵。
+    
+    $
+    \det (e^{\vb{B}}) = \det(\sum_{k=0}^{\infty} \frac{(\vb{PJP}^{-1})^k}{k!}) = \det(\sum_{k=0}^{\infty} \frac{\vb{PJ^kP}^{-1}}{k!}) = \det(\sum_{k=0}^{\infty}  \frac{\vb{J}^k}{k!}) = \det(e^{\vb{J}})
+    $
+
+    
+    现在，我们来计算 $\det(e^{\vb{J}})$。由于 $\vb{J}$ 是 Jordan 标准形，$e^{\vb{J}}$ 也是 Jordan 标准形，对角线上的元素是 $e^{\lambda_1}, e^{\lambda_2}, \ldots, e^{\lambda_n}$，其中 $\lambda_1, \lambda_2, \ldots, \lambda_n$ 是 $\vb{B}$ 的特征值。
+    
+    所以，$\det(e^{\vb{J}}) = e^{\lambda_1} e^{\lambda_2} \cdots e^{\lambda_n} = e^{\lambda_1 + \lambda_2 + \cdots + \lambda_n} = e^{\text{Tr}(\vb{B})}$  得证。\\
+
+
+    e. 由题 $\vb{P} = -\vb{G}^2 =(\vb*{b} \vb*{a}^{\vb{T}} - \vb*{a} \vb*{b}^{\vb{T}})(\vb*{a} \vb*{b}^{\vb{T}}  - \vb*{b} \vb*{a}^{\vb{T}})$\\
+    $= \vb*{ab^Tba^T - ab^Tab^T - ba^Tba^T + ba^Tab^T}$\\
+
+    f. $\vb{R(\theta) = e^{G\theta} = I* \cos(\theta) + G * \sin(\theta)}$ , 且因为$\vb{\det(R(\theta)) = 1, \quad R(\theta)^T R(\theta) = I}$，因此为旋转矩阵。
+
+
+    \end{question}
+
+    \begin{question}{3 (11') (矩阵范数)}~
+    
+    a. 要证明运算 $\|\cdot\|_p$ 构成 $R^n$ 上的一个范数，即$L^p$ 范数，需要验证以下三个性质：
+    
+    首先验证非负性：
+    
+    \quad \quad对于任意的 $x \in R^n$，$\|x\|_p = \left(\sum_{i=1}^{n} |x_i|^p\right)^{1/p}$。由于每一项都是非负的，所以整个求和也是非负的，然后开方也是非负的。因此，$\|x\|_p \geq 0$。
+    
+    \quad \quad当且仅当所有的 $|x_i|^p$ 都为 $0$ 时，$\|x\|_p = 0$。这意味着对于每一个 $i$，$|x_i|^p = 0$，从而 $|x_i| = 0$，因此 $x = 0$。
+    
+    接下来验证齐次性：
+    
+    对于任意的 $x \in R^n$ 和 $\alpha \in R$，
+    \[\begin{split}\|\alpha x\|_p &= \left(\sum_{i=1}^{n} |\alpha x_i|^p\right)^{1/p} \\
+    &= \left(\sum_{i=1}^{n} |\alpha|^p|x_i|^p\right)^{1/p} \\
+    &= \left(|\alpha|^p \sum_{i=1}^{n} |x_i|^p\right)^{1/p} \\
+    &= |\alpha| \left(\sum_{i=1}^{n} |x_i|^p\right)^{1/p} \\
+    &= |\alpha| \|x\|_p\end{split}\]
+    这证明了齐次性。
+    
+    最后验证三角不等式：由Minkowski 不等式
+
+    对于任意的 $x, y \in R^n$，
+    $\|x + y\|_p = (\sum_{i=1}^{n} {|x_i + y_i|}^p)^{1/p} \leq \left(\sum_{i=1}^{n} |x_i|^p\right)^{1/p} + \left(\sum_{i=1}^{n} |y_i|^p\right)^{1/p}$ \\
+    因此，$\|\cdot\|_p$ 构成了 $R^n$ 上的一个范数，即$L^p$ 范数。\\
+    
+    b.
+
+    \quad \quad i. $\left \| A \right \|_{i1} =\max_{1 \leq j\leq n} \sum_{i=1}^{m} \left | a_{ij} \right | $， 当$p=1$；
+
+    \quad \quad \quad${\|A\|}_{i2} =\sigma_{max} (A)$， 当$p=2$；
+
+    \quad \quad \quad$\left \| A \right \|_{i\infty } =\max_{1 \le i\le m} \sum_{j=1}^{n} \left | a_{ij} \right | $， 当$p=\infty$；
+
+    \quad \quad ii. 要证明定义的运算构成了 \( \mathbb{R}^{m \times n} \) 上的一个范数，需要验证它满足范数的三个基本性质：非负性、齐次性和三角不等式。
+    
+    \quad \quad非负性：对于任意矩阵 \( A \)，\(\|A\|_{ip}\) 应该是非负的。显然，对于任何非零的向量 \( x \)，\(\frac{\norm{\vb{A}\vb*{x}}}{\norm{\vb*{x}}} \geq 0\)，因此 \(\|A\|_{ip} \geq 0\)。
+    当且仅当 \( A = 0 \) 时，\( \|A\|_{ip} = 0 \)，因为只有当 \( A = 0 \) 时，对于任意非零向量 \( x \)，\( \|Ax\| = 0 \)。
+    
+    \quad \quad齐次性：对于任意标量 \( \alpha \)，矩阵 \( A \)，\(\|\alpha A\|_{ip} = |\alpha| \|A\|_{ip}\)。这个性质容易验证，因为标量乘法可以移至范数内部。
+    
+    \quad \quad三角不等式：
+    当 \( p = 1 \) 时，我们有：
+    \[
+    \|A\|_{i1} = \max_{1 \leq j \leq n} \sum_{i=1}^{m} |a_{ij}|
+    \]
+    这意味着矩阵 \( A \) 的每一列的绝对值之和的最大值。同理，\( \|B\|_{i1} \) 也表示矩阵 \( B \) 的每一列的绝对值之和的最大值。由于绝对值的不等式性质，我们有：
+    \[
+        \max_{1 \leq j \leq n} \sum_{i=1}^{m} |a_{ij}+b_{ij}| \leq \max_{1 \leq j \leq n}{\sum_{i=1}^{m} |a_{ij}|} + \max_{1 \leq j \leq n}{\sum_{i=1}^{m} |b_{ij}|}
+    \]
+    因此：
+    \[
+    \|A + B\|_{i1} = \max_{1 \leq j \leq n} \sum_{i=1}^{m} |(A+B)_{ij}| \leq \|A\|_{i1} + \|B\|_{i1}
+    \]
+    这证明了 \( p = 1 \) 时的三角不等式。
+
+    \quad \quad 当 \( p = 2 \) 时，我们有：
+    \[
+    \|A\|_{i2} = \sigma_{\max}(A)
+    \]
+    这表示矩阵 \( A \) 的最大奇异值。同理，\( \|B\|_{i2} \) 表示矩阵 \( B \) 的最大奇异值。根据奇异值的性质，我们有：
+    \[
+    \sigma_{\max}(A + B) \leq \sigma_{\max}(A) + \sigma_{\max}(B)
+    \]
+    因此：
+    \[
+    \|A + B\|_{i2} = \sigma_{\max}(A + B) \leq \|A\|_{i2} + \|B\|_{i2}
+    \]
+    这证明了 \( p = 2 \) 时的三角不等式。
+
+    \quad \quad当 \( p = \infty \) 时，我们有：
+    \[
+    \|A\|_{i\infty} = \max_{1 \leq i \leq m} \sum_{j=1}^{n} |a_{ij}|
+    \]
+    这表示矩阵 \( A \) 的每一行的绝对值之和的最大值。同理，\( \|B\|_{i\infty} \) 表示矩阵 \( B \) 的每一行的绝对值之和的最大值。由于绝对值的不等式性质，我们有：
+    \[
+    \max_{1 \leq i \leq m} \sum_{j=1}^{n} |a_{ij} + b_{ij}| \leq \max_{1 \leq i \leq m} \sum_{j=1}^{n} |a_{ij}| + \max_{1 \leq i \leq m} \sum_{j=1}^{n} |b_{ij}|
+    \]
+    因此：
+    \[
+    \|A + B\|_{i\infty} \leq \|A\|_{i\infty} + \|B\|_{i\infty}
+    \]
+    这证明了 \( p = \infty \) 时的三角不等式。
+
+    因此，针对 \( p = 1, 2, \infty \)，我们都证明了三角不等式成立。以上满足范数定义，得证。\\
+
+    c.  $p = 1$时  $\norm{\vb{A}}_{s1}= \sum_{i=1}^{\min\{m,n\}} \sigma_i$，当$p = 2$时    $\norm{\vb{A}}_{s2}= (\sum_{i=1}^{\min\{m,n\}} \sigma_i^2)^{1/2}$。\\
+
+    d. 
+    现在我们来证明 \( p = 2 \) 的情况下，Schatten 范数与逐元素范数等价。这意味着对于任意矩阵 \( A \)，有：
+    \[
+    \|A\|_{s2} = \|A\|_{e2}
+    \]
+    
+    首先，考虑矩阵的奇异值分解：
+    \[
+    A = U \Sigma V^H
+    \]
+    其中，\( U \) 和 \( V \) 分别是 \( m \times m \) 和 \( n \times n \) 的酉矩阵，且酉矩阵的Frobenius 范数为1, 范数\( \Sigma \) 是一个对角矩阵，其对角线上的元素是 \( A \) 的奇异值。
+    
+    那么，\( A \) 的 Frobenius 范数是：
+    \[
+    \|A\|_F = \sqrt{\sum_{i=1}^{m} \sum_{j=1}^{n} |a_{ij}|^2} = \|U \Sigma V^H\|_F = \|U\|_F \|\Sigma\|_F \|V^H\|_F = \sqrt{\sum_{i=1}^{k} \sigma_i^2}
+    \]
+    其中 \( k = \min(m, n) \) 是 \( A \) 的奇异值个数。
+    
+    由于 Frobenius 范数是逐元素范数的特例，我们已经知道 \( \|A\|_{e2} = \|A\|_F \)。
+    
+    而 Schatten 范数 \( \|A\|_{s2} \) 是奇异值的平方和的平方根，即 \( (\sum_{i=1}^{k} \sigma_i^2)^{1/2} \)，与 Frobenius 范数 \( \|A\|_F \) 相同。
+    
+    因此，\( p = 2 \) 的情况下，Schatten 范数与逐元素范数是等价的, 得证。
+    
+    \end{question}
+
+    
+        
+    \begin{question}{4 (16') (度量张量)}~
+    
+    为了在任意曲线坐标系中进行矢量微积分，我们定义任意局部坐标点 $(x^1, x^2, x^3)$ 处当局部坐标有微小的增量时，矢径 $\dd \vb*{r}$ 与坐标的微分 $\dd x^i (i = 1, 2, 3)$ 之间的关系
+    \[ \dd \vb*{r} = \vb*{g}_i \dd x^i, \]
+    中的
+    \[ \vb*{g}_i = \pdv{x}{x^i} \vb*{i} + \pdv{y}{x^i} \vb*{j} + \pdv{z}{x^i} \vb*{k} \quad (i = 1, 2, 3) \]
+    为协变基或者自然局部基矢量，其中 $\vb*{i, j, k}$ 为笛卡尔坐标。
+    
+    以球坐标为例，$(x^1, x^2, x^3) = (r, \theta, \phi)$，对应于笛卡尔坐标
+    \[ (x, y, z) = (x^1 \sin x^2 \cos x^3, x^1 \sin x^2 \sin x^3, x^1 \cos x^2). \]
+    
+    \begin{enumerate}
+        \item [a (4')] 请给出球坐标下的协变基相对于笛卡尔坐标系的表达式。
+    \end{enumerate}
+
+    a. 协变基向量在球坐标系下的表达式为：
+    
+
+    $\vb*{g}_1 = \sin\theta \cos\phi \vb*{i} + \sin\theta \sin\phi \vb*{j} + \cos\theta \vb*{k}$ \\
+    $\vb*{g}_2 = \vb*{r} \cos\theta \cos\phi \vb*{i} + \vb*{r} \cos\theta \sin\phi \vb*{j} - \vb*{r} \sin\theta \vb*{k}$ \\
+    $\vb*{g}_3 = -\vb*{r} \sin\theta \sin\phi \vb*{i} + \vb*{r} \sin\theta \cos\phi \vb*{j}$ \quad \quad
+    其中 $\vb*{i, j, k}$ 为笛卡尔坐标。 
+    
+    b.
+    所以，在球坐标系下，逆变基向量相对于笛卡尔坐标系的表达式为：
+
+    $g^1 = \sin\theta \cos\phi \mathbf{i} + \sin\theta \sin\phi \mathbf{j} + \cos\theta \mathbf{k} \\$
+    $g^2 = \frac{1}{r} ( \cos\theta \cos\phi \mathbf{i} +  \cos\theta \sin\phi \mathbf{j} -  \sin\theta \mathbf{k}) \\$
+    $g^3 = \frac{1}{r \sin\theta} (- \sin\phi \mathbf{i} +   \cos\phi \mathbf{j}) \\$
+
+
+    c. 我们需要计算矢径的长度的变化，即 $\abs{\dd \vb*{r}}^2 = \dd \vb*{r} \cdot \dd \vb*{r}$。根据给定的关系 $\dd \vb*{r} = \vb*{g}_i \dd x^i$，我们有：
+
+    \[\begin{split} \abs{\dd \vb*{r}}^2 &= (\vb*{g}_i \dd x^i) \cdot (\vb*{g}_j \dd x^j) \\
+    &= \vb*{g}_i \cdot \vb*{g}_j \dd x^i \dd x^j. \end{split}\]
+
+    $\abs{\dd \vb*{r}}^2 = \dd r^i \dd r_i$ 中的 $\dd r^i \dd r_i$ 可以表示为：
+
+    \[ \dd r^i \dd r_i = (\pdv{x}{x^i} \pdv{x}{x^j} + \pdv{y}{x^i} \pdv{y}{x^j} + \pdv{z}{x^i} \pdv{z}{x^j}) \dd x^i \dd x^j. \]
+
+    d. 两个矢径 $\vb*{r}_1$ 和 $\vb*{r}_2$ 之间夹角的余弦可以表示为它们的点乘除以它们的长度的乘积：
+    夹角的表达式为
+    \[\cos \psi = \frac{g_{ij} r_1^i r_2^j}{\sqrt{g_{ij} r_1^i r_1^j} \sqrt{g_{ij} r_2^i r_2^j}}.\]
+
+    \end{question}
+
+
+    \begin{question}{5 (10') (矩阵求导)}~
+    
+    a. 给定方程：
+    
+    \[ d\hat{r} \cdot d\hat{r} - dr \cdot dr = 2 \epsilon_{ij} dx^i dx^j \]
+    
+    其中 \( d\hat{r} = \frac{\partial \hat{r}}{\partial x^i} dx^i \) 和 \( dr = \frac{\partial r}{\partial x^i} dx^i \)。
+    
+    将它们代入方程，我们得到：
+    
+    \[ \left( \frac{\partial \hat{r}}{\partial x^i} dx^i \right) \cdot \left( \frac{\partial \hat{r}}{\partial x^j} dx^j \right) - \left( \frac{\partial r}{\partial x^i} dx^i \right) \cdot \left( \frac{\partial r}{\partial x^j} dx^j \right) = 2 \epsilon_{ij} dx^i dx^j \]
+    
+    \[ \frac{\partial \hat{r}}{\partial x^i} \cdot \frac{\partial \hat{r}}{\partial x^j} - \frac{\partial r}{\partial x^i} \cdot \frac{\partial r}{\partial x^j} = 2 \epsilon_{ij} \]
+    
+    这表明 \( \epsilon_{ij} \) 是对称的，因为 \( \epsilon_{ij} = \epsilon_{ji} \)。
+
+    b.  \quad $\mathcal{J}_1 = \mathcal{J}_1^*$, \\
+        $\mathcal{J}_2 = \frac{1}{2}\qty((\mathcal{J}_1^*)^2 - \mathcal{J}_2^*)$, \\
+        $\mathcal{J}_3 = \frac{1}{6}(\mathcal{J}_1^*)^3 - \frac{1}{2} \mathcal{J}_1^* \mathcal{J}_2^* + \frac{1}{3}\mathcal{J}_3^*$,
+
+    c.  $\mathcal{J}_1^* =  \mathcal{J}_1$\\
+        $\mathcal{J}_2^* = (\mathcal{J}_1)^2 -2\mathcal{J}_2$\\
+        $\mathcal{J}_3^* = (\mathcal{J}_1)^3 -3\mathcal{J}_1\mathcal{J}_2 + 3\mathcal{J}_3$
+
+    d.应力张量 $\sigma$ 的矢量表达式为：
+    $\sigma = a_0 J^*_{1} I + a_1 (\epsilon - \epsilon^T)$
+    
+    弹性刚度张量 \( C \) 的表达式为：
+    $C = a_0 I \otimes I + a_1 (I - I^T)$
+    
+    e. 
+    $\frac{d\sigma_{eq}}{d\sigma} = \frac{4(\sigma_{eq} - 1)}{9 \sigma_{eq}^3}$
+
+
+    \end{question}
+ 
+    \begin{question}{6 (18') (矢量恒等式证明)}~
+
+    a. 
+    
+    向量积 \(\vb*{a} \times \vb*{b}\) 可以用 Levi-Civita 符号表示为 \((\vb*{a} \times \vb*{b})_i = \epsilon_{ijk} a_j b_k\)。
+    
+    
+    使用 Levi-Civita 符号表示 \((\vb*{a} \times \vb*{b}) \times \vb*{c}\)：
+    
+    \[[(\vb*{a} \times \vb*{b}) \times \vb*{c}]_i = \epsilon_{ilm} (\vb*{a} \times \vb*{b})_l c_m = \epsilon_{ilm} \epsilon_{ljk} a_j b_k c_m\]
+    
+    因为
+    
+    \(\epsilon_{ilm} \epsilon_{ljk} = \delta_{ij}\delta_{km} - \delta_{im}\delta_{kj}\)，
+    
+    其中 \(\delta_{ij}\) 是 Kronecker delta，它等于 1 当 \(i = j\) 且等于 0 当 \(i \neq j\)。
+    
+    将其代入上述表达式，我们得到：
+    
+    \[[\epsilon_{ilm} \epsilon_{ljk} a_j b_k c_m] = (\delta_{ij}\delta_{km} - \delta_{im}\delta_{kj}) a_j b_k c_m\]
+    
+    这将化简为：
+    
+    \[= a_i b_k c_k - a_k b_i c_k \] 因此命题成立。\\
+
+    b. 因为
+    \[(\vb*{b} \times \vb*{c})_i = \epsilon_{ijk} b_j c_k\]
+    
+    然后，\(\vb*{a}\) 与 \(\vb*{b} \times \vb*{c}\) 的叉乘可以表示为：
+    \[(\vb*{a} \times (\vb*{b} \times \vb*{c}))_i = \epsilon_{ilm} a_l (\vb*{b} \times \vb*{c})_m\]
+    将 \((\vb*{b} \times \vb*{c})_m\) 替换为 Levi-Civita 符号的表达式，我们得到：
+    \[= \epsilon_{ilm} a_l (\epsilon_{mnk} b_n c_k)\]
+    接下来，使用 Levi-Civita 符号的乘积展开公式：
+    \[= (\delta_{in}\delta_{lk} - \delta_{ik}\delta_{ln}) a_l b_n c_k\]
+    
+    因此得证
+    \[\vb*{a} \times (\vb*{b} \times \vb*{c}) = (\vb*{a} \cdot \vb*{c})\vb*{b} - (\vb*{a} \cdot \vb*{b})\vb*{c}\]
+    
+    这个过程展示了如何使用 Levi-Civita 符号和向量代数的基本性质来证明向量叉乘的一个重要公式。
+
+    c. 
+
+    d. 
+    向量叉乘 \(\mathbf{a} \times \mathbf{b}\) 的第 \(i\) 个分量可以用 Levi-Civita 符号 \(\epsilon_{ijk}\) 表示为：
+    \[
+    (\mathbf{a} \times \mathbf{b})_i = \epsilon_{ijk}a_jb_k
+    \]
+    
+    同样地，\(\mathbf{c} \times \mathbf{d}\) 的第 \(i\) 个分量是：
+    \[
+    (\mathbf{c} \times \mathbf{d})_i = \epsilon_{ilm}c_ld_m
+    \]
+
+    接下来，我们利用点乘的定义，将 \((\mathbf{a} \times \mathbf{b}) \cdot (\mathbf{c} \times \mathbf{d})\) 表达为：
+    \[
+    (\mathbf{a} \times \mathbf{b}) \cdot (\mathbf{c} \times \mathbf{d}) = (\epsilon_{ijk}a_jb_k)(\epsilon_{ilm}c_ld_m)
+    \]
+    根据 Levi-Civita 符号的性质， \(\epsilon_{ijk}\epsilon_{ilm} = \delta_{jl}\delta_{km} - \delta_{jm}\delta_{kl}\)，其中 \(\delta_{ij}\) 是 Kronecker delta。
+    将 Levi-Civita 符号的性质代入上述表达式并简化，我们得到：
+    \[
+    (\epsilon_{ijk}a_jb_k)(\epsilon_{ilm}c_ld_m) = (\delta_{jl}\delta_{km} - \delta_{jm}\delta_{kl})a_jb_kc_ld_m
+    \]
+    进一步展开并重新排列上述表达式，我们可以证明原始的等式。
+
+    \end{question}
+    
+    \begin{question}{7 (9') (矢量对偶张量)}~    
+
+    a.
+    给定矢量 $\vb*{\omega} = (\omega_1, \omega_2, \omega_3)$，对偶张量 $\Omega$ 是一个二阶反对称张量，可以表示为：
+    \[ \Omega = \begin{pmatrix} 0 & -\omega_3 & \omega_2 \\ \omega_3 & 0 & -\omega_1 \\ -\omega_2 & \omega_1 & 0 \end{pmatrix} \]
+
+
+    考虑任意矢量 $\vb*{u} = (u_1, u_2, u_3)$，我们有：
+    \[ \Omega \vdot \vb*{u} = \begin{pmatrix} 0 & -\omega_3 & \omega_2 \\ \omega_3 & 0 & -\omega_1 \\ -\omega_2 & \omega_1 & 0 \end{pmatrix} \begin{pmatrix} u_1 \\ u_2 \\ u_3 \end{pmatrix} = \begin{pmatrix} -\omega_3 u_2 + \omega_2 u_3 \\ \omega_3 u_1 - \omega_1 u_3 \\ -\omega_2 u_1 + \omega_1 u_2 \end{pmatrix} \]
+
+
+    使用叉乘的定义，我们可以计算 $\vb*{\omega} \times \vb*{u}$：
+    \[ \vb*{\omega} \times \vb*{u} = (\omega_2 u_3 - \omega_3 u_2, \omega_3 u_1 - \omega_1 u_3, \omega_1 u_2 - \omega_2 u_1) \]
+    得证。
+
+    b. 对于给定的向量 \(\vb*{\omega}\)，与其对偶的二阶反对称张量 \(\Omega\) 可以通过 \(\vb*{\omega}\) 的分量来定义，即：
+    \[ \Omega_{ij} = \epsilon_{ijk}\omega^k \]
+    这里 \(\epsilon_{ijk}\) 是 Levi-Civita 符号，\(\omega^k\) 是向量 \(\vb*{\omega}\) 的分量。
+    
+    根据反对称张量的性质，我们可以将 \(\Omega\) 表达为与 \(\vb*{\omega}\) 相关的点乘形式。由于 \(\epsilon_{ijk}\) 是反对称的，并且 \(\Omega_{ij} = \epsilon_{ijk}\omega^k\)，这意味着 \(\Omega\) 可以通过 \(\epsilon_{ijk}\) 和 \(\omega^k\) 的乘积来构建，反映了 \(\vb*{\omega}\) 与每个坐标轴的叉乘关系。
+    
+    因此，我们有：
+    \[ \Omega = -\vb*{\epsilon} \vdot \vb*{\omega} \]
+    这里的负号是由叉乘的方向和 Levi-Civita 符号的性质决定的。
+    
+    同时，由于 \(\epsilon_{ijk}\) 和 \(\omega^k\) 均为反对称，我们也可以写作：
+    \[ \Omega = -\vb*{\omega} \vdot \vb*{\epsilon} \]
+
+    c.
+    如果矢量 $\vb*{v}$ 与 $\vb*{\omega}$ 平行，那么存在标量 $\lambda$ 使得 $\vb*{v} = \lambda \vb*{\omega}$。
+
+    根据 a 有 $\Omega \vdot \vb*{v} = \vb*{\omega} \times \vb*{v}$。将 $\vb*{v}$ 表达为 $\lambda \vb*{\omega}$，我们得到：
+    \[ \Omega \vdot \vb*{v} = \vb*{\omega} \times (\lambda \vb*{\omega}) \]
+    由于任何矢量与其自身的叉乘都是零向量，得到：
+    \[ \Omega \vdot \vb*{v} = \vb*{0} \]
+
+\end{question}
+
+\end{document}
