@@ -1,0 +1,110 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=2.0cm,right=2.0cm,top=2.5cm,bottom=2.5cm}
+
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{diagbox}
+\usepackage{amsmath,amsfonts,graphicx,amssymb,bm,amsthm}
+%\usepackage{algorithm,algorithmicx}
+\usepackage[ruled]{algorithm2e}
+\usepackage[noend]{algpseudocode}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,automata}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{ctex}
+
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\makeatother
+
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0 in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\hfill$\blacktriangleleft$\end{trivlist}}
+\newenvironment{answer}[1][Answer]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1.}\hskip \labelsep]}{\hfill$\lhd$\end{trivlist}}
+
+\newcommand\E{\mathbb{E}}
+
+\def\onedot{$\mathsurround0pt\ldotp$}
+\def\cddot{% two dots stacked vertically
+  \mathbin{\vcenter{\baselineskip.67ex
+    \hbox{\onedot}\hbox{\onedot}}%
+  }}%
+\def\cdddot#1{% three dots 
+  \mathbin{\vcenter{\baselineskip.67ex
+    \hbox{\onedot}\hbox{\onedot}\hbox{\onedot}%
+  }}%
+}
+
+
+\title{Homework Set \#4}
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+    \pagestyle{fancy}
+    \lhead{}
+    \chead{}
+    \rhead{GAMES 001, 2024 Spring}
+
+    \begin{center}
+        {\LARGE \bf Homework \#5}\\
+        {Due: 2024-5-28 00:00 \quad$|$\quad 1 Questions, 100 Pts}\\
+        {Name: JS}
+    \end{center}
+
+    \begin{question}{1 (100') (梳状函数)}~
+    如课件26-28页所示，梳状函数被定义为：
+    \begin{equation*}
+        C_T(t) = \sum_{n=-\infty}^{\infty}\delta(t-nT)
+    \end{equation*}
+    \begin{enumerate}
+        \item 试证明周期为$T$的梳状函数的傅里叶变换是周期为$\frac{2\pi}{T}$的梳状函数，即：
+    \begin{equation*}
+        \mathcal{F}(C_T(t)) = \frac{1}{T}C_{\frac{2\pi}{T}}(\omega).
+    \end{equation*}
+    解：因为$C_T(t)$在积分区域内只在零点
+    有值，其傅里叶级数为$c_n = \frac{1}{T}\int_{-T/2}^{T/2} C_T(t)e^{-i \frac{2n \pi}{T}t}  \,dt = \frac{1}{T} $，又因此有
+    \[C_T(t) = \sum_{n = -\infty}^{\infty}\frac{1}{T} e^{i \frac{2n \pi}{T}t}  \]
+    因为在计算积分时，只有当 \(\omega = \frac{2\pi}{T}n\) 时，被积函数 \(e^{i\omega t}\) 才不为零。对于每个频率 \(\frac{2\pi}{T}n\)，积分的结果是 \(e^{i\frac{2\pi}{T}n t}\) 乘以梳状函数在该频率处的值，即 \(C_{\frac{2\pi}{T}}\left(\frac{2\pi}{T}n\right)\)。
+    将每个频率的贡献相加，得到$\sum_{n = -\infty}^{\infty}\frac{1}{T} e^{i \frac{2\pi}{T}n t} = \frac{1}{T} \int_{-\infty}^{\infty} C_{\frac{2 \pi}{T}}(\omega)e^{i \omega t} \,d\omega$ ，
+    因为$f(t) = \int_{-\infty}^{\infty} F(\omega) e^{i\omega t} \,d\omega$且$\mathcal{F}(f) = F(\omega) $,
+
+    因此$\mathcal{F}(C_T(t))= \frac{1}{T} C_{\frac{2 \pi}{T}}(\omega)$，得证。
+    \item 试证明任意函数$F(\omega)$卷积梳状函数$C_{\frac{2\pi}{T}}(\omega)$等价于将$F(\omega)$每隔$\frac{2\pi}{T}$平移复制一份后再叠加。
+    
+    考虑 \( F(\omega) \) 和 \( C_{\frac{2\pi}{T}}(\omega) \) 的卷积：
+
+    \[ (F * C_{\frac{2\pi}{T}})(\omega) = \int_{-\infty}^{\infty} F(\omega') C_{\frac{2\pi}{T}}(\omega - \omega') d\omega' \]
+
+    将 \( C_{\frac{2\pi}{T}}(\omega) \) 的表达式代入上式：
+
+    \[ (F * C_{\frac{2\pi}{T}})(\omega) = \int_{-\infty}^{\infty} F(\omega') \left( \sum_{n = -\infty}^{\infty} \delta(\omega - \omega' - n \frac{2\pi}{T}) \right) d\omega' \]
+
+    根据狄拉克δ函数的筛选性质，上述积分仅在 \( \omega' = \omega - n \frac{2\pi}{T} \) 时不为零，因此我们可以将积分表达式重写为：
+
+    \[ (F * C_{\frac{2\pi}{T}})(\omega) = \sum_{n = -\infty}^{\infty} F(\omega - n \frac{2\pi}{T}) \]
+
+    这表明卷积操作实际上是将 \( F(\omega) \) 每隔 \( \frac{2\pi}{T} \) 进行平移复制，然后将所有的平移副本叠加起来。
+
+    因此，我们证明了任意函数 \( F(\omega) \) 与梳状函数 \( C_{\frac{2\pi}{T}}(\omega) \) 的卷积等价于将 \( F(\omega) \) 每隔 \( \frac{2\pi}{T} \) 平移复制一份后再叠加。
+    \end{enumerate} 
+    
+    \end{question}
+
+\end{document}
