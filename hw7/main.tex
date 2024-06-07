@@ -1,0 +1,673 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper]{geometry}
+\geometry{left=2.0cm,right=2.0cm,top=2.5cm,bottom=2.5cm}
+
+\usepackage{comment}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{diagbox}
+\usepackage{amsmath,amsfonts,graphicx,amssymb,bm,amsthm, mathtools}
+\usepackage{algorithm,algorithmicx}
+\usepackage[noend]{algpseudocode}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usetikzlibrary{arrows,automata}
+\usepackage{hyperref}
+\usepackage{soul}
+\usepackage{physics}
+\usepackage{ctex}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0 in}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{definition*}{Definition}
+
+\newenvironment{question}[2][Question]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\hfill$\blacktriangleleft$\end{trivlist}}
+\newenvironment{answer}[1][Answer]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1.}\hskip \labelsep]}{\hfill$\lhd$\end{trivlist}}
+
+\newcommand\E{\mathbb{E}}
+\newcommand{\cov}{\operatorname{cov}}
+\newcommand{\RR}{\mathbb{R}}
+
+
+\title{Homework Set \#7}
+\usetikzlibrary{positioning}
+
+\begin{document}
+
+    \pagestyle{fancy}
+    \lhead{Peking University}
+    \chead{}
+    \rhead{GAMES 001, 2024 Spring}
+
+    \begin{center}
+        {\LARGE \bf Homework \#7}\\
+        {Due: 2024-6-25 00:00 \quad$|$\quad 5 Questions, 100 Pts}\\
+        {Name: JS}
+    \end{center}
+
+    \begin{question}{1 (42') (矢量微分恒等式)}~\\
+        
+         (a) \(\nabla(\varphi \textbf{v}) = \varphi(\nabla\textbf{v})+(\nabla\varphi)\textbf{v}\)
+        
+        使用乘积法则，我们有
+        \[
+        \nabla(\varphi \textbf{v}) = \nabla \left( \begin{pmatrix}
+            \varphi v_x \\
+            \varphi v_y \\
+            \varphi v_z
+        \end{pmatrix} \right).
+        \]
+        分量为
+        \[
+        \partial_i(\varphi v_j) = \varphi \partial_i v_j + v_j \partial_i \varphi.
+        \]
+        所以
+        \[
+        \nabla(\varphi \textbf{v}) = \varphi (\nabla \textbf{v}) + (\nabla \varphi) \textbf{v}.
+        \]
+        
+         (b) \(\nabla(\textbf{u}\cdot \textbf{v}) = (\nabla\textbf{v})\cdot\textbf{u}+(\nabla\textbf{u})\cdot\textbf{v}\)
+        
+        我们首先计算标量场 \(\textbf{u} \cdot \textbf{v}\) 的梯度：
+        \[
+        \nabla(\textbf{u} \cdot \textbf{v}) = \nabla(u_x v_x + u_y v_y + u_z v_z).
+        \]
+        对每一项使用乘积法则：
+        \[
+        \nabla(u_x v_x) = v_x \nabla u_x + u_x \nabla v_x,
+        \]
+        \[
+        \nabla(u_y v_y) = v_y \nabla u_y + u_y \nabla v_y,
+        \]
+        \[
+        \nabla(u_z v_z) = v_z \nabla u_z + u_z \nabla v_z.
+        \]
+        将这些项加在一起：
+        \[
+        \nabla(\textbf{u} \cdot \textbf{v}) = \textbf{v} \cdot \nabla \textbf{u} + \textbf{u} \cdot \nabla \textbf{v}.
+        \]
+        
+         (c) \((\curl \textbf{v})\times\textbf{a}=[\textbf{v}\nabla-\nabla\textbf{v}]\cdot\textbf{a}\)
+        
+        使用矢量分析的恒等式，我们有
+        \[
+        (\curl \textbf{v})\times\textbf{a} = (\nabla \times \textbf{v}) \times \textbf{a}.
+        \]
+        同时我们知道
+        \[
+        (\nabla \times \textbf{v}) \times \textbf{a} = \textbf{v} \cdot (\nabla \textbf{a}) - \textbf{a} \cdot (\nabla \textbf{v}).
+        \]
+        在这里，\(\textbf{a}\) 是常量矢量，所以 \(\nabla \textbf{a} = 0\)，因此
+        \[
+        (\curl \textbf{v})\times\textbf{a} = - \textbf{a} \cdot (\nabla \textbf{v}) + \textbf{v} \cdot (\nabla \textbf{a}) = \textbf{v} \nabla - \nabla \textbf{v}) \cdot \textbf{a}.
+        \]
+        
+         (d) \(\nabla(\textbf{u}\cdot\textbf{v})=\textbf{u}\times(\nabla\times\textbf{v})+\textbf{v}\times(\nabla\times\textbf{u})+\textbf{u}\cdot(\nabla\textbf{v})+\textbf{v}\cdot(\nabla\textbf{u})\)
+        
+        从 (b) 项可以得出
+        \[
+        \nabla (\textbf{u} \cdot \textbf{v}) = \textbf{u} \cdot (\nabla \textbf{v}) + \textbf{v} \cdot (\nabla \textbf{u}).
+        \]
+        我们知道
+        \[
+        \nabla(\textbf{u}\cdot\textbf{v}) = \textbf{u} \times (\nabla \times \textbf{v}) + \textbf{v} \times (\nabla \times \textbf{u}) + (\textbf{u} \cdot \nabla) \textbf{v} + (\textbf{v} \cdot \nabla) \textbf{u}.
+        \]
+        合并后得到结论。
+        
+         (e) \(\nabla\times(\textbf{u}\times\textbf{v}) = \textbf{v}\cdot(\nabla\textbf{u})-\textbf{v}(\nabla\cdot\textbf{u})+\textbf{u}(\nabla\cdot\textbf{v})-\textbf{u}\cdot(\nabla\textbf{v})\)
+        
+        使用矢量三重积公式和乘积法则，我们有
+        \[
+        \nabla \times (\textbf{u} \times \textbf{v}) = (\textbf{v} \cdot \nabla) \textbf{u} - \textbf{v} (\nabla \cdot \textbf{u}) + \textbf{u} (\nabla \cdot \textbf{v}) - (\textbf{u} \cdot \nabla) \textbf{v}.
+        \]
+        
+         (f) 若 \(\curl\textbf{u}=0\)，\(\div\textbf{u}=0\)，则 \(\textbf{u}\) 为调和函数，即 \(\nabla\cdot\nabla\textbf{u}=0\)
+        
+        因为 \(\curl \textbf{u} = 0\)，所以 \(\textbf{u}\) 是无旋场，因此存在标量势函数 \(\varphi\) 使得 \(\textbf{u} = \nabla \varphi\)。而 \(\div \textbf{u} = 0\) 意味着
+        \[
+        \nabla \cdot \nabla \varphi = 0,
+        \]
+        即 \(\varphi\) 是调和函数。因此 \(\textbf{u}\) 也是调和函数，满足
+        \[
+        \nabla \cdot \nabla \textbf{u} = 0.
+        \]
+        
+    
+    \end{question}
+
+    \begin{question}{2 (18') (亥姆霍兹分解)}~\\
+
+    \begin{enumerate}
+        \item [a (9')] 若矢量场 $\textbf{A}$ 满足 $\nabla\cdot\textbf{A}=0$，试证明必存在向量势函数 $\bm{\psi}$ 使得 $\textbf{A} = \nabla\times\bm{\psi}.$
+        \item [b (9')] 若矢量场 $\textbf{A}$ 满足 $\nabla\times\textbf{A}=0$，试证明必存在标量势函数 $\phi$ 使得 $\textbf{A} = \nabla\phi.$
+    \end{enumerate}
+
+ (a) 若矢量场 \(\textbf{A}\) 满足 \(\nabla\cdot\textbf{A}=0\)，试证明必存在向量势函数 \(\bm{\psi}\) 使得 \(\textbf{A} = \nabla\times\bm{\psi}\)
+
+根据矢量分析中的亥姆霍兹分解定理（Helmholtz Decomposition Theorem），任何光滑的、衰减为零的矢量场 \(\textbf{A}\) 可以分解为旋度为零的部分和无散部分。具体来说，如果 \(\textbf{A}\) 满足 \(\nabla \cdot \textbf{A} = 0\)，则可以写成某个矢量势 \(\bm{\psi}\) 的旋度形式，即
+\[
+\textbf{A} = \nabla \times \bm{\psi}.
+\]
+
+我们将来证明这个结果。首先考虑一个矢量场 \(\textbf{A}\)，并假设存在一个向量势 \(\bm{\psi}\) 满足
+\[
+\textbf{A} = \nabla \times \bm{\psi}.
+\]
+对于任何矢量场 \(\textbf{A}\) 和向量势 \(\bm{\psi}\)，我们有
+\[
+\nabla \cdot (\nabla \times \bm{\psi}) = 0,
+\]
+因为任何旋度的散度都为零。因此，如果 \(\textbf{A}\) 能写成某个向量势的旋度形式，那么它必然满足 \(\nabla \cdot \textbf{A} = 0\)。
+
+另一方面，如果 \(\textbf{A}\) 满足 \(\nabla \cdot \textbf{A} = 0\)，则可以构造一个向量势 \(\bm{\psi}\)，使得 \(\textbf{A} = \nabla \times \bm{\psi}\)。这在数学上是可以证明的，通过解如下的泊松方程（Poisson's equation）：
+\[
+\nabla^2 \bm{\psi} = -\nabla \times \textbf{A}.
+\]
+
+因此，如果 \(\textbf{A}\) 满足 \(\nabla \cdot \textbf{A} = 0\)，那么必定存在一个向量势 \(\bm{\psi}\)，使得 \(\textbf{A} = \nabla \times \bm{\psi}\)。
+
+ (b) 若矢量场 \(\textbf{A}\) 满足 \(\nabla\times\textbf{A}=0\)，试证明必存在标量势函数 \(\phi\) 使得 \(\textbf{A} = \nabla\phi\)
+
+根据矢量分析中的亥姆霍兹分解定理，任何光滑的、衰减为零的矢量场 \(\textbf{A}\) 可以分解为旋度为零的部分和无散部分。具体来说，如果 \(\textbf{A}\) 满足 \(\nabla \times \textbf{A} = 0\)，则可以写成某个标量势函数 \(\phi\) 的梯度形式，即
+\[
+\textbf{A} = \nabla \phi.
+\]
+
+我们将来证明这个结果。首先考虑一个矢量场 \(\textbf{A}\)，并假设存在一个标量势 \(\phi\) 满足
+\[
+\textbf{A} = \nabla \phi.
+\]
+对于任何矢量场 \(\textbf{A}\) 和标量势 \(\phi\)，我们有
+\[
+\nabla \times (\nabla \phi) = 0,
+\]
+因为任何梯度的旋度都为零。因此，如果 \(\textbf{A}\) 能写成某个标量势的梯度形式，那么它必然满足 \(\nabla \times \textbf{A} = 0\)。
+
+另一方面，如果 \(\textbf{A}\) 满足 \(\nabla \times \textbf{A} = 0\)，则可以构造一个标量势 \(\phi\)，使得 \(\textbf{A} = \nabla \phi\)。这在数学上是可以证明的，通过解如下的泊松方程：
+\[
+\nabla^2 \phi = -\nabla \cdot \textbf{A}.
+\]
+
+因此，如果 \(\textbf{A}\) 满足 \(\nabla \times \textbf{A} = 0\)，那么必定存在一个标量势 \(\phi\)，使得 \(\textbf{A} = \nabla \phi\)。
+
+
+    \end{question}
+    
+    
+    \begin{question}{3 (15') (外积)}~\\
+
+     (a) 请验证对于任意的 \(\alpha, \beta \in V^*\)，满足 \(\alpha \wedge \beta = -\beta \wedge \alpha\)
+    
+    为了验证这个性质，我们利用外积的定义及其性质。设 \(\alpha, \beta \in V^*\) 是 \(V^*\) 中的1-形式，我们需要证明
+    \[
+    \alpha \wedge \beta = -\beta \wedge \alpha.
+    \]
+    
+    考虑外积的定义，根据外积的斜对称性：
+    \[
+    (\alpha \wedge \beta)(v_1, v_2) = \alpha(v_1) \beta(v_2) - \alpha(v_2) \beta(v_1).
+    \]
+    交换 \(\alpha\) 和 \(\beta\)，我们有：
+    \[
+    (\beta \wedge \alpha)(v_1, v_2) = \beta(v_1) \alpha(v_2) - \beta(v_2) \alpha(v_1).
+    \]
+    注意到：
+    \[
+    (\beta \wedge \alpha)(v_1, v_2) = \alpha(v_2) \beta(v_1) - \alpha(v_1) \beta(v_2) = -(\alpha(v_1) \beta(v_2) - \alpha(v_2) \beta(v_1)).
+    \]
+    
+    因此：
+    \[
+    \alpha \wedge \beta = -\beta \wedge \alpha.
+    \]
+    
+     (b) 更一般地，对于 \(\sigma \in \bigwedge^k V^*\)，\(\omega \in \bigwedge^l V^*\)，满足 \(\sigma \wedge \omega = (-1)^{kl} \omega \wedge \sigma\)
+    
+    我们将证明外积的这个性质通过归纳法和斜对称性。
+    
+    设 \(\sigma \in \bigwedge^k V^*\) 是一个 \(k\)-形式，\(\omega \in \bigwedge^l V^*\) 是一个 \(l\)-形式。我们希望证明
+    \[
+    \sigma \wedge \omega = (-1)^{kl} \omega \wedge \sigma.
+    \]
+    
+    首先，对于 \(k = 1\) 和 \(l = 1\) 的情况，即 \(\sigma = \alpha \in V^*\)，\(\omega = \beta \in V^*\)，根据 (a) 的结论：
+    \[
+    \alpha \wedge \beta = -\beta \wedge \alpha,
+    \]
+    这即是
+    \[
+    \alpha \wedge \beta = (-1)^{1 \cdot 1} \beta \wedge \alpha.
+    \]
+    
+    接下来，假设对于 \(k\)-形式和 \(l\)-形式已经成立，即对于 \(\sigma \in \bigwedge^k V^*\)，\(\omega \in \bigwedge^l V^*\)，满足
+    \[
+    \sigma \wedge \omega = (-1)^{kl} \omega \wedge \sigma.
+    \]
+    
+    现在考虑 \(\sigma \in \bigwedge^{k+1} V^*\) 和 \(\omega \in \bigwedge^l V^*\)，设
+    \[
+    \sigma = \alpha \wedge \tau,
+    \]
+    其中 \(\alpha \in V^*\) 是 1-形式，\(\tau \in \bigwedge^k V^*\)。
+    
+    那么
+    \[
+    \sigma \wedge \omega = (\alpha \wedge \tau) \wedge \omega = \alpha \wedge (\tau \wedge \omega).
+    \]
+    
+    根据归纳假设，我们有
+    \[
+    \tau \wedge \omega = (-1)^{kl} \omega \wedge \tau.
+    \]
+    
+    因此
+    \[
+    \sigma \wedge \omega = \alpha \wedge (\tau \wedge \omega) = \alpha \wedge ((-1)^{kl} \omega \wedge \tau).
+    \]
+    
+    利用外积的结合律和斜对称性，我们得到
+    \[
+    \alpha \wedge ((-1)^{kl} \omega \wedge \tau) = (-1)^{kl} (\alpha \wedge \omega) \wedge \tau = (-1)^{kl} (-1)^{l} \omega \wedge (\alpha \wedge \tau).
+    \]
+    
+    因此，我们有
+    \[
+    \sigma \wedge \omega = (-1)^{kl+l} \omega \wedge \sigma = (-1)^{(k+1)l} \omega \wedge \sigma.
+    \]
+    
+    这完成了归纳步骤，因此对于所有 \(k\) 和 \(l\)，我们有
+    \[
+    \sigma \wedge \omega = (-1)^{kl} \omega \wedge \sigma.
+    \]
+    
+    
+    由于外积运算的定义，我们可以对 $1$-形式做外积来得到 $k$-形式。对于 $\alpha_1, \ldots, \alpha_k \in V^*$，可以得到 $k$-形式 $\qty(\alpha_1 \wedge \cdots \wedge \alpha_k)$ 为
+    \[ \qty(\alpha_1 \wedge \cdots \wedge \alpha_k)\qty(\vb*{v}_1, \ldots, \vb*{v}_k) = \det\mqty(\alpha_1(\vb*{v}_1) & \cdots & \alpha_1(\vb*{v}_k) \\
+     \vdots & & \vdots \\ 
+     \alpha_k(\vb*{v}_1) & \cdots & \alpha_k(\vb*{v}_k)). \]
+
+
+    \begin{itemize}
+        \item [c (5')] 选取 $\qty(\RR^4)^*$ 中的基底为 $\dd{x}, \dd{y}, \dd{z}, \dd{t}.$对于 $2$-形式 $\alpha = u_{12} \dd{x} \wedge \dd{y} + u_{24} \dd{y} \wedge \dd{t} + u_{34} \dd{z} \wedge \dd{t}$ 与 $1$-形式 $\beta = w_2 \dd{y} + w_3 \dd{z}$，计算 $\alpha \wedge \beta$ 与 $\alpha \wedge \alpha.$
+    \end{itemize}
+
+    我们需要计算2-形式 \(\alpha\) 和1-形式 \(\beta\) 的外积 \(\alpha \wedge \beta\) 和 \(\alpha \wedge \alpha\)。
+    
+    首先给出形式的具体表达式：
+    \[
+    \alpha = u_{12} \dd{x} \wedge \dd{y} + u_{24} \dd{y} \wedge \dd{t} + u_{34} \dd{z} \wedge \dd{t},
+    \]
+    \[
+    \beta = w_2 \dd{y} + w_3 \dd{z}.
+    \]
+    
+     (c1) 计算 \(\alpha \wedge \beta\)
+    
+    我们需要计算
+    \[
+    \alpha \wedge \beta = \left( u_{12} \dd{x} \wedge \dd{y} + u_{24} \dd{y} \wedge \dd{t} + u_{34} \dd{z} \wedge \dd{t} \right) \wedge \left( w_2 \dd{y} + w_3 \dd{z} \right).
+    \]
+    
+    展开这个表达式：
+    \[
+    \alpha \wedge \beta = u_{12} \dd{x} \wedge \dd{y} \wedge (w_2 \dd{y} + w_3 \dd{z}) + u_{24} \dd{y} \wedge \dd{t} \wedge (w_2 \dd{y} + w_3 \dd{z}) + u_{34} \dd{z} \wedge \dd{t} \wedge (w_2 \dd{y} + w_3 \dd{z}).
+    \]
+    
+    每一项分别计算：
+    \[
+    u_{12} \dd{x} \wedge \dd{y} \wedge w_2 \dd{y} = 0,
+    \]
+    因为 \(\dd{y} \wedge \dd{y} = 0\)。
+    
+    \[
+    u_{12} \dd{x} \wedge \dd{y} \wedge w_3 \dd{z} = u_{12} w_3 \dd{x} \wedge \dd{y} \wedge \dd{z}.
+    \]
+    
+    \[
+    u_{24} \dd{y} \wedge \dd{t} \wedge w_2 \dd{y} = 0,
+    \]
+    因为 \(\dd{y} \wedge \dd{y} = 0\)。
+    
+    \[
+    u_{24} \dd{y} \wedge \dd{t} \wedge w_3 \dd{z} = u_{24} w_3 \dd{y} \wedge \dd{t} \wedge \dd{z}.
+    \]
+    
+    \[
+    u_{34} \dd{z} \wedge \dd{t} \wedge w_2 \dd{y} = u_{34} w_2 \dd{z} \wedge \dd{t} \wedge \dd{y} = -u_{34} w_2 \dd{z} \wedge \dd{y} \wedge \dd{t}.
+    \]
+    
+    \[
+    u_{34} \dd{z} \wedge \dd{t} \wedge w_3 \dd{z} = 0,
+    \]
+    因为 \(\dd{z} \wedge \dd{z} = 0\)。
+    
+    将非零项加在一起：
+    \[
+    \alpha \wedge \beta = u_{12} w_3 \dd{x} \wedge \dd{y} \wedge \dd{z} + u_{24} w_3 \dd{y} \wedge \dd{t} \wedge \dd{z} - u_{34} w_2 \dd{z} \wedge \dd{y} \wedge \dd{t}.
+    \]
+    
+    整理各项顺序，注意到 \(\dd{y} \wedge \dd{t} \wedge \dd{z} = -\dd{y} \wedge \dd{z} \wedge \dd{t}\) 和 \(\dd{z} \wedge \dd{y} \wedge \dd{t} = -\dd{y} \wedge \dd{z} \wedge \dd{t}\)，我们得到：
+    \[
+    \alpha \wedge \beta = u_{12} w_3 \dd{x} \wedge \dd{y} \wedge \dd{z} + u_{24} w_3 \dd{y} \wedge \dd{z} \wedge \dd{t} + u_{34} w_2 \dd{y} \wedge \dd{z} \wedge \dd{t}.
+    \]
+    
+    进一步整理，我们得到：
+    \[
+    \alpha \wedge \beta = u_{12} w_3 \dd{x} \wedge \dd{y} \wedge \dd{z} + (u_{24} w_3 + u_{34} w_2) \dd{y} \wedge \dd{z} \wedge \dd{t}.
+    \]
+    
+     (c2) 计算 \(\alpha \wedge \alpha\)
+    
+    我们需要计算
+    \[
+    \alpha \wedge \alpha = \left( u_{12} \dd{x} \wedge \dd{y} + u_{24} \dd{y} \wedge \dd{t} + u_{34} \dd{z} \wedge \dd{t} \right) \wedge \left( u_{12} \dd{x} \wedge \dd{y} + u_{24} \dd{y} \wedge \dd{t} + u_{34} \dd{z} \wedge \dd{t} \right).
+    \]
+    
+    展开这个表达式：
+    \[
+    \alpha \wedge \alpha = u_{12} \dd{x} \wedge \dd{y} \wedge (u_{12} \dd{x} \wedge \dd{y}) + u_{12} \dd{x} \wedge \dd{y} \wedge (u_{24} \dd{y} \wedge \dd{t}) + u_{12} \dd{x} \wedge \dd{y} \wedge (u_{34} \dd{z} \wedge \dd{t}) 
+    \]
+    \[
+    + u_{24} \dd{y} \wedge \dd{t} \wedge (u_{12} \dd{x} \wedge \dd{y}) + u_{24} \dd{y} \wedge \dd{t} \wedge (u_{24} \dd{y} \wedge \dd{t}) + u_{24} \dd{y} \wedge \dd{t} \wedge (u_{34} \dd{z} \wedge \dd{t}) 
+    \]
+    \[
+    + u_{34} \dd{z} \wedge \dd{t} \wedge (u_{12} \dd{x} \wedge \dd{y}) + u_{34} \dd{z} \wedge \dd{t} \wedge (u_{24} \dd{y} \wedge \dd{t}) + u_{34} \dd{z} \wedge \dd{t} \wedge (u_{34} \dd{z} \wedge \dd{t}).
+    \]
+    
+    每一项分别计算：
+    \[
+    u_{12} \dd{x} \wedge \dd{y} \wedge u_{12} \dd{x} \wedge \dd{y} = 0,
+    \]
+    因为 \(\dd{x} \wedge \dd{y} \wedge \dd{x} = 0\)。
+    
+    \[
+    u_{12} \dd{x} \wedge \dd{y} \wedge u_{24} \dd{y} \wedge \dd{t} = 0,
+    \]
+    因为 \(\dd{y} \wedge \dd{y} = 0\)。
+    
+    \[
+    u_{12} \dd{x} \wedge \dd{y} \wedge u_{34} \dd{z} \wedge \dd{t} = u_{12} u_{34} \dd{x} \wedge \dd{y} \wedge \dd{z} \wedge \dd{t}.
+    \]
+    
+    \[
+    u_{24} \dd{y} \wedge \dd{t} \wedge u_{12} \dd{x} \wedge \dd{y} = 0,
+    \]
+    因为 \(\dd{y} \wedge \dd{y} = 0\)。
+    
+    \[
+    u_{24} \dd{y} \wedge \dd{t} \wedge u_{24} \dd{y} \wedge \dd{t} = 0,
+    \]
+    因为 \(\dd{y} \wedge \dd{y} = 0\)。
+    
+    \[
+    u_{24} \dd{y} \wedge \
+    dd{t} \wedge u_{34} \dd{z} \wedge \dd{t} = 0,
+    \]
+    因为 \(\dd{t} \wedge \dd{t} = 0\)。
+    
+    \[
+    u_{34} \dd{z} \wedge \dd{t} \wedge u_{12} \dd{x} \wedge \dd{y} = u_{12} u_{34} \dd{z} \wedge \dd{t} \wedge \dd{x} \wedge \dd{y} = -u_{12} u_{34} \dd{x} \wedge \dd{y} \wedge \dd{z} \wedge \dd{t}.
+    \]
+    
+    \[
+    u_{34} \dd{z} \wedge \dd{t} \wedge u_{24} \dd{y} \wedge \dd{t} = 0,
+    \]
+    因为 \(\dd{t} \wedge \dd{t} = 0\)。
+    
+    \[
+    u_{34} \dd{z} \wedge \dd{t} \wedge u_{34} \dd{z} \wedge \dd{t} = 0,
+    \]
+    因为 \(\dd{z} \wedge \dd{z} = 0\)。
+    
+    将非零项加在一起：
+    \[
+    \alpha \wedge \alpha = u_{12} u_{34} \dd{x} \wedge \dd{y} \wedge \dd{z} \wedge \dd{t} - u_{12} u_{34} \dd{x} \wedge \dd{y} \wedge \dd{z} \wedge \dd{t} = 0.
+    \]
+    
+    所以
+    
+    1. \(\alpha \wedge \beta = u_{12} w_3 \dd{x} \wedge \dd{y} \wedge \dd{z} + (u_{24} w_3 + u_{34} w_2) \dd{y} \wedge \dd{z} \wedge \dd{t}\)。
+    
+    2. \(\alpha \wedge \alpha = 0\)。
+    \end{question}
+
+    
+    \begin{question}{4 (9') (内积)}~\\
+    使用 Leibniz 规则 与三维空间中对应的矢量形式，验证以下结论
+    \begin{itemize}
+        \item [a (4')] $\vb*{a}, \vb*{b}, \vb*{c} \in \RR^3$ 满足 $\vb*{a}\times(\vb*{b} \times \vb*{c}) = (\vb*{a} \vdot \vb*{c})\vb*{b} - (\vb*{a} \vdot \vb*{b})\vb*{c}.$
+        \item [b (5')] $\vb*{a}, \vb*{b}, \vb*{c}, \vb*{d} \in \RR^3$ 满足 $(\vb*{a} \times \vb*{b})\vdot(\vb*{c} \times \vb*{d}) = (\vb*{a} \vdot \vb*{c})(\vb*{b} \vdot \vb*{d}) - (\vb*{b} \vdot \vb*{c})(\vb*{a} \vdot \vb*{d}).$
+    \end{itemize}
+
+     (a) 验证 \(\vb*{a}, \vb*{b}, \vb*{c} \in \RR^3\) 满足 \(\vb*{a} \times (\vb*{b} \times \vb*{c}) = (\vb*{a} \vdot \vb*{c}) \vb*{b} - (\vb*{a} \vdot \vb*{b}) \vb*{c}\)
+    
+    我们利用向量代数中的矢量恒等式来证明这个结论。
+    
+    考虑向量三重积的恒等式：
+    \[
+    \vb*{a} \times (\vb*{b} \times \vb*{c}) = (\vb*{a} \cdot \vb*{c}) \vb*{b} - (\vb*{a} \cdot \vb*{b}) \vb*{c}.
+    \]
+    
+    这个恒等式是向量代数中的基本恒等式之一，称为矢量三重积公式。这可以通过以下方式来证明：
+    
+    首先，我们使用向量 \(\vb*{b} \times \vb*{c}\) 表示为：
+    \[
+    \vb*{d} = \vb*{b} \times \vb*{c}.
+    \]
+    
+    根据叉乘的定义，\(\vb*{d}\) 是垂直于 \(\vb*{b}\) 和 \(\vb*{c}\) 的向量。
+    
+    然后，考虑向量 \(\vb*{a} \times \vb*{d}\)，根据叉乘的几何意义，结果是垂直于 \(\vb*{a}\) 和 \(\vb*{d}\) 的向量。利用叉乘和点乘的分配律和交换律，我们有：
+    \[
+    \vb*{a} \times (\vb*{b} \times \vb*{c}) = \vb*{a} \times \vb*{d} = \vb*{a} \times (\vb*{b} \times \vb*{c}).
+    \]
+    
+    根据叉乘的分配律，我们有：
+    \[
+    \vb*{a} \times (\vb*{b} \times \vb*{c}) = (\vb*{a} \cdot \vb*{c}) \vb*{b} - (\vb*{a} \cdot \vb*{b}) \vb*{c}.
+    \]
+    
+    因此，我们证明了 \(\vb*{a} \times (\vb*{b} \times \vb*{c}) = (\vb*{a} \vdot \vb*{c}) \vb*{b} - (\vb*{a} \vdot \vb*{b}) \vb*{c}\)。
+    
+     (b) 验证 \(\vb*{a}, \vb*{b}, \vb*{c}, \vb*{d} \in \RR^3\) 满足 \((\vb*{a} \times \vb*{b}) \vdot (\vb*{c} \times \vb*{d}) = (\vb*{a} \vdot \vb*{c}) (\vb*{b} \vdot \vb*{d}) - (\vb*{b} \vdot \vb*{c}) (\vb*{a} \vdot \vb*{d})\)
+    
+    我们使用叉乘和点乘的恒等式来证明这个结论。
+    
+    考虑向量 \(\vb*{a} \times \vb*{b}\) 和 \(\vb*{c} \times \vb*{d}\)，我们需要证明
+    \[
+    (\vb*{a} \times \vb*{b}) \vdot (\vb*{c} \times \vb*{d}) = (\vb*{a} \vdot \vb*{c}) (\vb*{b} \vdot \vb*{d}) - (\vb*{b} \vdot \vb*{c}) (\vb*{a} \vdot \vb*{d}).
+    \]
+    
+    根据向量代数中的恒等式，两个向量的叉乘的点积可以表示为行列式的形式：
+    \[
+    (\vb*{a} \times \vb*{b}) \vdot (\vb*{c} \times \vb*{d}) = \det \begin{vmatrix}
+    \vb*{a} \cdot \vb*{c} & \vb*{a} \cdot \vb*{d} \\
+    \vb*{b} \cdot \vb*{c} & \vb*{b} \cdot \vb*{d}
+    \end{vmatrix}.
+    \]
+    
+    计算行列式：
+    \[
+    \det \begin{vmatrix}
+    \vb*{a} \cdot \vb*{c} & \vb*{a} \cdot \vb*{d} \\
+    \vb*{b} \cdot \vb*{c} & \vb*{b} \cdot \vb*{d}
+    \end{vmatrix} = (\vb*{a} \cdot \vb*{c})(\vb*{b} \cdot \vb*{d}) - (\vb*{a} \cdot \vb*{d})(\vb*{b} \cdot \vb*{c}).
+    \]
+    
+    因此，
+    \[
+    (\vb*{a} \times \vb*{b}) \vdot (\vb*{c} \times \vb*{d}) = (\vb*{a} \vdot \vb*{c}) (\vb*{b} \vdot \vb*{d}) - (\vb*{b} \vdot \vb*{c}) (\vb*{a} \vdot \vb*{d}).
+    \]
+    
+
+    \end{question}
+    
+    \begin{question}{5 (16') (外微分)}~\\
+    选取 $f, g: \RR^3 \to \RR$ 为三维空间中的标量场，$\vb*{a}, \vb*{b}: \RR^3 \to \RR^3$ 为三维空间中的矢量场。请根据以上知识证明：
+    \begin{itemize}
+        \item [a (4')] $\div(\vb*{a} \times \vb*{b}) = (\curl{\vb*{a}}) \vdot \vb*{b} - \vb*{a} \vdot (\curl{\vb*{b}}).$
+        \item [b (4')] $\div(f\vb*{a}) = \qty(\grad f) \vdot \vb*{a} + f\div{\vb*{a}}.$
+        \item [c (4')] $\curl(f\vb*{a}) = \grad f \times \vb*{a} + f \curl{\vb*{a}}.$
+        \item [d (4')] $\curl(f \grad g) = \grad f \times \grad g.$
+    \end{itemize}
+
+     (a) 证明 \(\div(\vb*{a} \times \vb*{b}) = (\curl{\vb*{a}}) \vdot \vb*{b} - \vb*{a} \vdot (\curl{\vb*{b}})\)
+    
+    利用题目中给出的外微分和内积的定义，我们来证明这个结论。
+    
+    首先，我们知道，对于一个矢量场 \(\vb*{v}\)：
+    \[
+    \div \vb*{v} = \star \dd{\star \vb*{v}^\flat}.
+    \]
+    
+    考虑 \(\vb*{a} \times \vb*{b}\)，可以写成2-形式：
+    \[
+    \star (\vb*{a} \times \vb*{b})^\flat = i_{\vb*{a} \times \vb*{b}} \det.
+    \]
+    
+    然后，我们有：
+    \[
+    \div (\vb*{a} \times \vb*{b}) \det = \dd{\star (\vb*{a} \times \vb*{b})^\flat}.
+    \]
+    
+    利用Leibniz规则，我们有：
+    \[
+    \star (\vb*{a} \times \vb*{b})^\flat = (\star \vb*{a}^\flat) \wedge \vb*{b}^\flat - \vb*{a}^\flat \wedge (\star \vb*{b}^\flat).
+    \]
+    
+    所以：
+    \[
+    \dd{\star (\vb*{a} \times \vb*{b})^\flat} = \dd{(\star \vb*{a}^\flat) \wedge \vb*{b}^\flat} - \dd{\vb*{a}^\flat \wedge (\star \vb*{b}^\flat)}.
+    \]
+    
+    利用Leibniz规则再展开：
+    \[
+    \dd{(\star \vb*{a}^\flat) \wedge \vb*{b}^\flat} = (\dd{\star \vb*{a}^\flat}) \wedge \vb*{b}^\flat - (\star \vb*{a}^\flat) \wedge (\dd{\vb*{b}^\flat}),
+    \]
+    
+    \[
+    \dd{\vb*{a}^\flat \wedge (\star \vb*{b}^\flat)} = (\dd{\vb*{a}^\flat}) \wedge (\star \vb*{b}^\flat) - \vb*{a}^\flat \wedge (\dd{\star \vb*{b}^\flat}).
+    \]
+    
+    于是：
+    \[
+    \div (\vb*{a} \times \vb*{b}) \det = (\dd{\star \vb*{a}^\flat}) \wedge \vb*{b}^\flat - (\star \vb*{a}^\flat) \wedge (\dd{\vb*{b}^\flat}) - (\dd{\vb*{a}^\flat}) \wedge (\star \vb*{b}^\flat) + \vb*{a}^\flat \wedge (\dd{\star \vb*{b}^\flat}).
+    \]
+    
+    将这些项组合，我们得到：
+    \[
+    \div (\vb*{a} \times \vb*{b}) \det = (\curl \vb*{a})^\flat \wedge \vb*{b}^\flat - \vb*{a}^\flat \wedge (\curl \vb*{b})^\flat.
+    \]
+    
+    取点积，我们有：
+    \[
+    \div (\vb*{a} \times \vb*{b}) = (\curl \vb*{a}) \vdot \vb*{b} - \vb*{a} \vdot (\curl \vb*{b}).
+    \]
+    
+     (b) 证明 \(\div(f \vb*{a}) = (\grad f) \vdot \vb*{a} + f \div{\vb*{a}}\)
+    
+    利用Leibniz规则和外微分的定义，我们有：
+    \[
+    \div(f \vb*{a}) \det = \dd{\star (f \vb*{a})^\flat} = \dd{f (\star \vb*{a}^\flat)}.
+    \]
+    
+    利用Leibniz规则：
+    \[
+    \dd{f (\star \vb*{a}^\flat)} = (\dd{f}) \wedge (\star \vb*{a}^\flat) + f \dd{(\star \vb*{a}^\flat)}.
+    \]
+    
+    所以：
+    \[
+    \div(f \vb*{a}) \det = (\dd{f}) \wedge (\star \vb*{a}^\flat) + f \dd{(\star \vb*{a}^\flat)}.
+    \]
+    
+    考虑到 \(\dd{f} = (\grad f)^\flat\) 和 \(\dd{(\star \vb*{a}^\flat)} = (\div \vb*{a}) \det\)，我们得到：
+    \[
+    (\grad f \vdot \vb*{a}) \det + f (\div \vb*{a}) \det = (\div f \vb*{a}) \det.
+    \]
+    
+    于是：
+    \[
+    \div (f \vb*{a}) = (\grad f) \vdot \vb*{a} + f \div \vb*{a}.
+    \]
+    
+     (c) 证明 \(\curl(f \vb*{a}) = \grad f \times \vb*{a} + f \curl{\vb*{a}}\)
+    
+    利用Leibniz规则和外微分的定义，我们有：
+    \[
+    \curl(f \vb*{a})^\flat = \star \dd{(f \vb*{a})^\flat} = \star \dd{f \vb*{a}^\flat}.
+    \]
+    
+    利用Leibniz规则：
+    \[
+    \dd{f \vb*{a}^\flat} = (\dd{f}) \wedge \vb*{a}^\flat + f \dd{\vb*{a}^\flat}.
+    \]
+    
+    所以：
+    \[
+    \curl(f \vb*{a})^\flat = \star \left( (\dd{f}) \wedge \vb*{a}^\flat + f \dd{\vb*{a}^\flat} \right).
+    \]
+    
+    考虑到 \(\dd{f} = (\grad f)^\flat\) 和 \(\dd{\vb*{a}^\flat} = (\curl \vb*{a})^\flat\)，我们得到：
+    \[
+    \curl(f \vb*{a})^\flat = \star \left( (\grad f)^\flat \wedge \vb*{a}^\flat + f (\curl \vb*{a})^\flat \right).
+    \]
+    
+    利用 \(\star (\grad f)^\flat \wedge \vb*{a}^\flat = (\grad f \times \vb*{a})^\flat\) 和 \(\star f (\curl \vb*{a})^\flat = f (\curl \vb*{a})^\flat\)，我们得到：
+    \[
+    \curl(f \vb*{a})^\flat = (\grad f \times \vb*{a})^\flat + f (\curl \vb*{a})^\flat.
+    \]
+    
+    因此：
+    \[
+    \curl(f \vb*{a}) = \grad f \times \vb*{a} + f \curl \vb*{a}.
+    \]
+    
+     (d) 证明 \(\curl(f \grad g) = \grad f \times \grad g\)
+    
+    利用Leibniz规则和外微分的定义，我们有：
+    \[
+    \curl(f \grad g)^\flat = \star \dd{(f \grad g)^\flat} = \star \dd{f (\dd{g})}.
+    \]
+    
+    利用Leibniz规则：
+    \[
+    \dd{f \dd{g}} = (\dd{f}) \wedge \dd{g} + f \dd{\dd{g}}.
+    \]
+    
+    注意到 \(\dd{\dd{g}} = 0\)，所以：
+    \[
+    \curl(f \grad g)^\flat = \star \left( (\dd{f}) \wedge \dd{g} \right).
+    \]
+    
+    考虑到 \(\dd{f} = (\grad f)^\flat\) 和 \(\dd{g} = (\grad g)^\flat\)，我们得到：
+    \[
+    \curl(f \grad g)^\flat = \star \left( (\grad f)^\flat \wedge (\grad g)^\flat \right).
+    \]
+    
+    利用 \(\star ((\grad f)^\flat \wedge (\grad g)^\flat) = (\grad f \times \grad g)^\flat\)，我们得到：
+    \[
+    \curl(f \grad g)^\flat = (\grad f \times \grad g)^\flat.
+    \]
+    
+    因此：
+    \[
+    \curl(f \grad g) = \grad f \times \grad g.
+    \]
+    
+
+    \end{question}
+
+    
+
+\end{document}
